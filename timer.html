@@ -3,24 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Looping Timer Video</title>
+    <title>Fullscreen Video</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        body, html {
             margin: 0;
-            background-color: #000; /* Optional: background color */
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover; /* Ensures the video covers the entire screen */
         }
     </style>
 </head>
 <body>
-
-<video width="640" height="360" autoplay loop muted>
-    <source src="https://raw.githubusercontent.com/CodedMyst/Timer/main/timer.webm" type="video/webm">" type="video/webm">
-    Your browser does not support the video tag.
-</video>
-
+    <video autoplay loop muted>
+        <source src="https://raw.githubusercontent.com/CodedMyst/Timer/main/timer.webm" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 </body>
 </html>
