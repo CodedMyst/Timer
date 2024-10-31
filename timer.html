@@ -10,6 +10,7 @@
             padding: 0;
             height: 100%;
             overflow: hidden;
+            position: relative; /* Needed for absolute positioning of overlays */
         }
         video {
             position: absolute;
@@ -20,7 +21,7 @@
             width: auto;
             height: auto;
             transform: translate(-50%, -50%);
-            object-fit: cover;
+            object-fit: cover; /* Cover the entire screen while preserving quality */
         }
         /* Linktree Button Styling */
         .linktree-tooltip {
@@ -33,6 +34,7 @@
             border-radius: 5px;
             text-decoration: none;
             font-weight: bold;
+            z-index: 10; /* Ensure the button is above other elements */
         }
         /* Tooltip Styling */
         .tooltip-text {
@@ -66,6 +68,17 @@
             visibility: visible;
             opacity: 1;
         }
+        /* Blurred overlay styling */
+        .blur-overlay {
+            position: absolute;
+            top: 30%; /* Adjust as needed */
+            left: 20%; /* Adjust as needed */
+            width: 60px; /* Width of the blurred area */
+            height: 60px; /* Height of the blurred area */
+            background: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
+            filter: blur(10px); /* Blur effect */
+            z-index: 5; /* Position below the tooltip but above the video */
+        }
     </style>
 </head>
 <body>
@@ -74,8 +87,11 @@
         Your browser does not support the video tag.
     </video>
 
-    <!-- Linktree Button with Tooltip -->
-    <a href="https://linktr.ee/yourusername" target="_blank" class="linktree-tooltip">
+    <!-- Blurred Overlay -->
+    <div class="blur-overlay"></div>
+
+    <!-- Linktree Button with Updated Tooltip -->
+    <a href="https://linktr.ee/sarahk.links" target="_blank" class="linktree-tooltip">
         Visit My Linktree
         <span class="tooltip-text">Explore my curated resources!</span>
     </a>
