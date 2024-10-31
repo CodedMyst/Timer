@@ -20,7 +20,51 @@
             width: auto;
             height: auto;
             transform: translate(-50%, -50%);
-            object-fit: cover; /* Cover the entire screen while preserving quality */
+            object-fit: cover;
+        }
+        /* Linktree Button Styling */
+        .linktree-tooltip {
+            position: absolute;
+            top: 20px; /* Position the button near the top */
+            right: 20px; /* Position the button near the right */
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        /* Tooltip Styling */
+        .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            top: 100%; /* Position below the link */
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip-text::after {
+            content: "";
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent transparent #333 transparent;
+        }
+        /* Show Tooltip on Hover */
+        .linktree-tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
         }
     </style>
 </head>
@@ -29,5 +73,11 @@
         <source src="https://raw.githubusercontent.com/CodedMyst/Timer/main/timer.webm" type="video/mp4">
         Your browser does not support the video tag.
     </video>
+
+    <!-- Linktree Button with Tooltip -->
+    <a href="https://linktr.ee/yourusername" target="_blank" class="linktree-tooltip">
+        Visit My Linktree
+        <span class="tooltip-text">Explore my curated resources!</span>
+    </a>
 </body>
 </html>
