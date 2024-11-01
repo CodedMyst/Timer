@@ -10,7 +10,7 @@
             padding: 0;
             height: 100%;
             overflow: hidden;
-            position: relative; /* Needed for absolute positioning of overlays */
+            position: relative;
         }
         video {
             position: absolute;
@@ -21,20 +21,20 @@
             width: auto;
             height: auto;
             transform: translate(-50%, -50%);
-            object-fit: cover; /* Cover the entire screen while preserving quality */
+            object-fit: cover;
         }
-        /* Linktree Button Styling */
-        .linktree-tooltip {
+        /* Buy Me a Coffee Button Styling */
+        .bmc-tooltip {
             position: absolute;
-            top: 20px; /* Position the button near the top */
-            right: 20px; /* Position the button near the right */
+            top: 20px;
+            right: 20px;
             padding: 10px;
-            background-color: #4CAF50;
-            color: white;
+            background-color: #FFDD00;
+            color: #000;
             border-radius: 5px;
             text-decoration: none;
             font-weight: bold;
-            z-index: 10; /* Ensure the button is above other elements */
+            z-index: 10;
         }
         /* Tooltip Styling */
         .tooltip-text {
@@ -47,7 +47,7 @@
             padding: 5px 0;
             position: absolute;
             z-index: 1;
-            top: 100%; /* Position below the link */
+            top: 100%;
             left: 50%;
             margin-left: -100px;
             opacity: 0;
@@ -64,20 +64,20 @@
             border-color: transparent transparent #333 transparent;
         }
         /* Show Tooltip on Hover */
-        .linktree-tooltip:hover .tooltip-text {
+        .bmc-tooltip:hover .tooltip-text {
             visibility: visible;
             opacity: 1;
         }
         /* Blurred overlay styling */
         .blur-overlay {
             position: absolute;
-            top: 30%; /* Adjust as needed */
-            left: 20%; /* Adjust as needed */
-            width: 60px; /* Width of the blurred area */
-            height: 60px; /* Height of the blurred area */
-            background: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
-            filter: blur(10px); /* Blur effect */
-            z-index: 5; /* Position below the tooltip but above the video */
+            top: 30%;
+            left: 20%;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.5);
+            filter: blur(10px);
+            z-index: 5;
         }
     </style>
 </head>
@@ -90,10 +90,10 @@
     <!-- Blurred Overlay -->
     <div class="blur-overlay"></div>
 
-    <!-- Linktree Button with Updated Tooltip -->
-    <a href="https://linktr.ee/sarahk.links" target="_blank" class="linktree-tooltip">
-        Visit My Linktree
-        <span class="tooltip-text">Explore my curated resources!</span>
+    <!-- Buy Me a Coffee Button with Tooltip -->
+    <a href="https://www.buymeacoffee.com/sarahk.links" target="_blank" class="bmc-tooltip">
+        Buy me a coffee
+        <span class="tooltip-text">Support my work with a coffee!</span>
     </a>
 </body>
 </html>
