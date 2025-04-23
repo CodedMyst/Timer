@@ -6,85 +6,126 @@
     <title>Pomodoro Timer</title>
     <style>
         body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #282c34;
+            color: white;
             font-family: Arial, sans-serif;
             text-align: center;
-            margin: 50px auto;
-            max-width: 600px;
-            background-color: #f4f4f9;
-            color: #333;
         }
-        h1 {
-            font-size: 2.5em;
-            color: #ff6347;
+        .timer {
+            font-size: 5rem;
         }
-        #timer {
-            font-size: 3em;
-            margin: 20px 0;
-            color: #333;
-        }
-        .controls, .settings {
+        .controls {
             margin-top: 20px;
         }
-        input {
-            padding: 10px;
-            margin: 10px 5px;
-            font-size: 16px;
-            width: 80px;
+        .controls button {
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            border: none;
+            background-color: #61dafb;
+            color: black;
+            border-radius: 5px;
+        }
+        .controls button:disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+        }
+        footer {
+            position: absolute;
+            bottom: 20px;
             text-align: center;
         }
-        button {
+        .donate-button {
+            margin-top: 10px;
+            font-size: 1rem;
             padding: 10px 20px;
-            margin: 10px 5px;
-            font-size: 16px;
-            background-color: #ff6347;
-            color: #fff;
+            background-color: #ff9800;
+            color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
-        button:hover {
-            background-color: #e55340;
-        }
-        .bmc-button {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #FFDD00;
-            color: #000;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .bmc-button:hover {
-            background-color: #FFC107;
-        }
-        footer {
-            margin-top: 30px;
-            font-size: 14px;
-            color: #555;
-        }
     </style>
 </head>
 <body>
-    <h1>Pomodoro Timer</h1>
-    <div id="timer">25:00</div>
-    <div class="settings">
-        <input type="number" id="work-duration" placeholder="Work (min)" value="25">
-        <input type="number" id="break-duration" placeholder="Break (min)" value="5">
+    <div>
+        <h1>Pomodoro Timer</h1>
+        <div class="timer" id="timer">25:00</div>
+        <div class="controls">
+            <button id="startButton">Start</button>
+            <button id="pauseButton" disabled>Pause</button>
+            <button id="resetButton">Reset</button>
+        </div>
     </div>
-    <div class="controls">
-        <button id="start">Start</button>
-        <button id="pause">Pause</button>
-        <button id="reset">Reset</button>
-    </div>
-    <!-- Buy Me a Coffee Button -->
-    <a href="https://www.buymeacoffee.com/sarahk.links" target="_blank" class="bmc-button">
-        ☕ Buy Me a Coffee
-    </a>
     <footer>
-        Made with ❤️ by CodedMyst
+        <p>Made with ❤️ by <a href="https://github.com/CodedMyst" target="_blank">CodedMyst</a></p>
+        <button class="donate-button" onclick="window.open('https://paypal.me/nationallibrary.live', '_blank')">Donate</button>
     </footer>
-    <script src="script.js"></script>
+    <script>
+        let timerElement = document.getElementById("timer");
+        let startButton = document.getElementById("startButton");
+        let pauseButton = document.getElementById("pauseButton");
+        let resetButton = document.getElementById("resetButton");
+
+        let intervalId = null;
+        let isRunning = false;
+        let timeLeft = 25 * 60; // 25 minutes in seconds
+
+        function updateTimerDisplay() {
+            const minutes = String(Math.floor(timeLeft / 60)).padStart(2, "0");
+            const seconds = String(timeLeft % 60).padStart(2, "0");
+            timerElement.textContent = `${minutes}:${seconds}`;
+        }
+
+        function startTimer() {
+            if (!isRunning) {
+                isRunning = true;
+                intervalId = setInterval(() => {
+                    if (timeLeft > 0) {
+                        timeLeft--;
+                        updateTimerDisplay();
+                    } else {
+                        clearInterval(intervalId);
+                        isRunning = false;
+                        alert("Time's up! Take a short break.");
+                    }
+                }, 1000);
+                startButton.disabled = true;
+                pauseButton.disabled = false;
+            }
+        }
+
+        function pauseTimer() {
+            if (isRunning) {
+                clearInterval(intervalId);
+                isRunning = false;
+                startButton.disabled = false;
+                pauseButton.disabled = true;
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(intervalId);
+            isRunning = false;
+            timeLeft = 25 * 60; // Reset to 25 minutes
+            updateTimerDisplay();
+            startButton.disabled = false;
+            pauseButton.disabled = true;
+        }
+
+        startButton.addEventListener("click", startTimer);
+        pauseButton.addEventListener("click", pauseTimer);
+        resetButton.addEventListener("click", resetTimer);
+
+        // Initialize the timer display
+        updateTimerDisplay();
+    </script>
 </body>
 </html>
