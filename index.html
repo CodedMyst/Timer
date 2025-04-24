@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pomodoro Timer</title>
+    <title>Keyboard-Controlled Timer</title>
     <style>
         body {
             margin: 0;
@@ -18,15 +18,13 @@
             text-align: center;
         }
         .timer {
-            font-size: 5rem;
-        }
-        .controls {
-            margin-top: 20px;
+            font-size: 4rem;
+            margin-bottom: 20px;
         }
         .controls button {
             font-size: 1.2rem;
             padding: 10px 20px;
-            margin: 0 10px;
+            margin: 0 5px;
             cursor: pointer;
             border: none;
             background-color: #61dafb;
@@ -37,46 +35,33 @@
             background-color: #aaa;
             cursor: not-allowed;
         }
-        footer {
-            position: absolute;
-            bottom: 20px;
-            text-align: center;
-        }
-        .donate-button {
-            margin-top: 10px;
+        .key-bindings {
+            margin-top: 20px;
             font-size: 1rem;
-            padding: 10px 20px;
-            background-color: #ff9800;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            color: #aaaaaa;
         }
     </style>
 </head>
 <body>
-    <div>
-        <h1>Pomodoro Timer</h1>
-        <div class="timer" id="timer">25:00</div>
-        <div class="controls">
-            <button id="startButton">Start</button>
-            <button id="pauseButton" disabled>Pause</button>
-            <button id="resetButton">Reset</button>
-        </div>
+    <h1>Keyboard-Controlled Timer</h1>
+    <div class="timer" id="timer">25:00</div>
+    <div class="controls">
+        <button id="startButton">Start</button>
+        <button id="pauseButton" disabled>Pause</button>
+        <button id="resetButton">Reset</button>
     </div>
-    <footer>
-        <p>Made with ❤️ by <a href="https://github.com/CodedMyst" target="_blank">CodedMyst</a></p>
-        <button class="donate-button" onclick="window.open('https://paypal.me/nationallibrary.live', '_blank')">Donate</button>
-    </footer>
+    <div class="key-bindings">
+        <p>Keyboard Controls: Spacebar (Start/Pause), R (Reset)</p>
+    </div>
     <script>
-        let timerElement = document.getElementById("timer");
-        let startButton = document.getElementById("startButton");
-        let pauseButton = document.getElementById("pauseButton");
-        let resetButton = document.getElementById("resetButton");
+        const timerElement = document.getElementById("timer");
+        const startButton = document.getElementById("startButton");
+        const pauseButton = document.getElementById("pauseButton");
+        const resetButton = document.getElementById("resetButton");
 
         let intervalId = null;
-        let isRunning = false;
         let timeLeft = 25 * 60; // 25 minutes in seconds
+        let isRunning = false;
 
         function updateTimerDisplay() {
             const minutes = String(Math.floor(timeLeft / 60)).padStart(2, "0");
@@ -94,7 +79,7 @@
                     } else {
                         clearInterval(intervalId);
                         isRunning = false;
-                        alert("Time's up! Take a short break.");
+                        alert("Time's up!");
                     }
                 }, 1000);
                 startButton.disabled = true;
@@ -114,17 +99,32 @@
         function resetTimer() {
             clearInterval(intervalId);
             isRunning = false;
-            timeLeft = 25 * 60; // Reset to 25 minutes
+            timeLeft = 25 * 60;
             updateTimerDisplay();
             startButton.disabled = false;
             pauseButton.disabled = true;
         }
 
+        // Add keyboard controls
+        document.addEventListener("keydown", (event) => {
+            if (event.code === "Space") {
+                // Spacebar toggles between start and pause
+                if (isRunning) {
+                    pauseTimer();
+                } else {
+                    startTimer();
+                }
+                event.preventDefault(); // Prevent scrolling on Spacebar
+            } else if (event.code === "KeyR") {
+                // R key resets the timer
+                resetTimer();
+            }
+        });
+
         startButton.addEventListener("click", startTimer);
         pauseButton.addEventListener("click", pauseTimer);
         resetButton.addEventListener("click", resetTimer);
 
-        // Initialize the timer display
         updateTimerDisplay();
     </script>
 </body>
